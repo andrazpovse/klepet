@@ -34,6 +34,13 @@ a {
   overflow: auto;
 }
 
+#seznam-uporabnikov div{
+  cursor: pointer;
+}
+#seznam-uporabnikov div:hover{
+  background-color: #ddd;
+}
+
 #seznam {
   float: right;
   width: 15%;
