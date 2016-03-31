@@ -133,10 +133,13 @@ function dodajSmeske(vhodnoBesedilo) {
 }
 
 $('#seznam-uporabnikov').click(function(x) {
+  
   var vzdevek = $(x.target).text();
-    $('#poslji-sporocilo').val('/zasebno "' + vzdevek  + '"');
+    $('#poslji-sporocilo').val('/zasebno "' + vzdevek  + '"'); //se vedno je treba dodati besedilo zasebnega sporocila v "narekovaje"
     $('#poslji-sporocilo').focus();
+    
 });
+
 
 
 
