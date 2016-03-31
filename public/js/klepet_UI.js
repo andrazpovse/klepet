@@ -131,3 +131,17 @@ function dodajSmeske(vhodnoBesedilo) {
   }
   return vhodnoBesedilo;
 }
+
+$('#seznam-uporabnikov').click(function(x) {
+  var vzdevek = $(x.target).text();
+    $('#poslji-sporocilo').val('/zasebno "' + vzdevek  + '"');
+    $('#poslji-sporocilo').focus();
+});
+
+
+
+
+  
+
+
+
