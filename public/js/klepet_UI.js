@@ -135,7 +135,7 @@ function dodajSmeske(vhodnoBesedilo) {
 $('#seznam-uporabnikov').click(function(x) {
   
   var vzdevek = $(x.target).text();
-    $('#poslji-sporocilo').val('/zasebno "' + vzdevek  + '"'); //se vedno je treba dodati besedilo zasebnega sporocila v "narekovaje"
+    $('#poslji-sporocilo').val('/zasebno "' + vzdevek  + '"'); // se vedno je treba dodati besedilo zasebnega sporocila v "narekovaje", drugace je undefined
     $('#poslji-sporocilo').focus();
     
 });
