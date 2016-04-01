@@ -1,5 +1,9 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
+  var jeVideo = sporocilo.match(/(?:https?:\/\/)?www\.youtube\.com\S+?v=\K\S+/gi);
+  if (jeVideo){
+     return $('<div style="font-weight: bold"></div>').html(sporocilo);
+  }
   if (jeSmesko) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
@@ -14,7 +18,9 @@ function divElementHtmlTekst(sporocilo) {
 
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
+  sporocilo = dodajVideo(sporocilo);
   sporocilo = dodajSmeske(sporocilo);
+  
   var sistemskoSporocilo;
 
   if (sporocilo.charAt(0) == '/') {
@@ -129,5 +135,16 @@ function dodajSmeske(vhodnoBesedilo) {
       "<img src='http://sandbox.lavbic.net/teaching/OIS/gradivo/" +
       preslikovalnaTabela[smesko] + "' />");
   }
+  return vhodnoBesedilo;
+}
+
+function dodajVideo(vhodnoBesedilo){
+  
+ // var text = vhodnoBesedilo.match(/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi);
+  //var kodaVidea = text.substr(text - 11);
+  vhodnoBesedilo = vhodnoBesedilo.replace(/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi,"<iframe src='https://www.youtube.com/embed/"+ /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi.replace(/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi,/(?:https?:\/\/)?www\.youtube\.com\S+?v=\K\S+/gi )  +"' allowfullscreen width='200px' height='150px' style='margin-left:20px;'></iframe>" );
+  // <iframe src="https://www.youtube.com/embed/{video}" allowfullscreen></iframe>
+  // (?:https?:\/\/)?www\.youtube\.com\S+?v=\K\S+     -----NAJDE ID VIDEA
+  //<iframe src='https://www.youtube.com/embed/"+/(?:https?:\/\/)?www\.youtube\.com\S+?v=\K\S+/gi.substr(/(?:https?:\/\/)?www\.youtube\.com\S+?v=\K\S+/gi.length - 11)  +"' style='margin-left:20px;' width='200px' height='150px' allowfullscreen /></iframe>
   return vhodnoBesedilo;
 }
