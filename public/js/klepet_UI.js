@@ -1,14 +1,14 @@
 function divElementEnostavniTekst(sporocilo) {
-  var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
+  var jeSmesko = sporocilo.match(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi);
   var jeSlika = sporocilo.match(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi);
   
-  if (jeSlika) {
-    console.log("jeSlika");
-    sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('\'200px\' /&gt;', '\'200px\'" />');
-    return $('<div style="font-weight: bold"></div>').html(sporocilo);
+  
+  if (jeSlika){   //preverimo ce je notri URL slike, ce je ...
+    //sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('\'200px\' /&gt;', '\'200px\'" />');
+    return $('<div style="font-weight: bold"></div>').html(sporocilo); //na koncu izpisemo
   }
   if (jeSmesko) {
-    sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
+   // sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } 
  
@@ -146,6 +146,5 @@ function dodajSlike(vhodnoBesedilo){
   
    vhodnoBesedilo = vhodnoBesedilo.replace(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi,"<img src='$1' style='margin-left:20px;' width='200px' />" );
    return vhodnoBesedilo;
-  
 }
 
