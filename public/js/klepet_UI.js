@@ -144,7 +144,7 @@ function dodajSmeske(vhodnoBesedilo) {
 
 function dodajSlike(vhodnoBesedilo){
   
-   vhodnoBesedilo = vhodnoBesedilo.replace(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi,"<img src='$1' width='200px' />" );
+   vhodnoBesedilo = vhodnoBesedilo.replace(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi,"<img src='$1' style='margin-left:20px;' width='200px' />" );
    return vhodnoBesedilo;
   
 }
