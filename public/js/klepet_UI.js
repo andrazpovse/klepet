@@ -91,11 +91,24 @@ $(document).ready(function() {
     $('#kanal').text(trenutniVzdevek + " @ " + trenutniKanal);
     $('#sporocila').append(divElementHtmlTekst('Sprememba kanala.'));
   });
-
+  
   socket.on('sporocilo', function (sporocilo) {
     var novElement = divElementEnostavniTekst(sporocilo.besedilo);
     $('#sporocila').append(novElement);
   });
+  
+  socket.on('dregljaj', function(){
+    
+    $('#vsebina').jrumble();
+    $('#vsebina').trigger('startRumble');
+      /*setTimeout(konec, 1500);
+    };*/
+    setTimeout(function() { 
+    $('#vsebina').trigger('stopRumble')
+      
+    }, 1500);
+    
+  })
   
   socket.on('kanali', function(kanali) {
     $('#seznam-kanalov').empty();
