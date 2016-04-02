@@ -156,6 +156,7 @@ $('#seznam-uporabnikov').click(function(x) {
 
 
 
+<<<<<<< HEAD
 =======
 function dodajVideo(vhodnoBesedilo){
 
@@ -169,3 +170,5 @@ function youtubeVideoId(besedilo) { //dobimo ID video posnetka iz youtube......v
   return (besedilo.match(p)) ? RegExp.$1 : false;
 }
 >>>>>>> .merge_file_EshWjU
+=======
+>>>>>>> zasebna
