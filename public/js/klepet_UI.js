@@ -1,7 +1,12 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
+  var jeVideo = sporocilo.match(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi);
+  if (jeVideo){
+     return $('<div style="font-weight: bold"></div>').html(sporocilo);
+  }
   if (jeSmesko) {
-    sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
+    //ne rabimo tega, ker izpisemo kot .html(sporocilo), ce pa nima smeskov pa .text(sporocilo)
+    //sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } else {
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
@@ -14,7 +19,9 @@ function divElementHtmlTekst(sporocilo) {
 
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
+  sporocilo = dodajVideo(sporocilo);
   sporocilo = dodajSmeske(sporocilo);
+  
   var sistemskoSporocilo;
 
   if (sporocilo.charAt(0) == '/') {
@@ -131,3 +138,34 @@ function dodajSmeske(vhodnoBesedilo) {
   }
   return vhodnoBesedilo;
 }
+
+
+$('#seznam-uporabnikov').click(function(x) {
+  
+  var vzdevek = $(x.target).text();
+    $('#poslji-sporocilo').val('/zasebno "' + vzdevek  + '"'); // se vedno je treba dodati besedilo zasebnega sporocila v "narekovaje", drugace je undefined
+    $('#poslji-sporocilo').focus();
+    
+});
+
+
+
+
+
+  
+
+
+
+=======
+function dodajVideo(vhodnoBesedilo){
+
+  var kodaVidea = youtubeVideoId(vhodnoBesedilo);  //rabimo ID youtube posnetka, nato zamenjamo youtube url z HTMLjem 
+  vhodnoBesedilo = vhodnoBesedilo.replace(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi,"<iframe width='200px' height='150px' style='margin-left:20px;' src='https://www.youtube.com/embed/"+kodaVidea+"' allowfullscreen ></iframe>" );
+  return vhodnoBesedilo;
+}
+
+function youtubeVideoId(besedilo) { //dobimo ID video posnetka iz youtube......vidi link, in za v= odseka 11 znakov ki so ID videa
+  var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+  return (besedilo.match(p)) ? RegExp.$1 : false;
+}
+>>>>>>> .merge_file_EshWjU
