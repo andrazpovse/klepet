@@ -1,11 +1,12 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
-  var jeVideo = sporocilo.match(/(?:https?:\/\/)?www\.youtube\.com\S+?v=\K\S+/gi);
+  var jeVideo = sporocilo.match(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi);
   if (jeVideo){
      return $('<div style="font-weight: bold"></div>').html(sporocilo);
   }
   if (jeSmesko) {
-    sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
+    //ne rabimo tega, ker izpisemo kot .html(sporocilo), ce pa nima smeskov pa .text(sporocilo)
+    //sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } else {
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
@@ -139,12 +140,13 @@ function dodajSmeske(vhodnoBesedilo) {
 }
 
 function dodajVideo(vhodnoBesedilo){
-  
- // var text = vhodnoBesedilo.match(/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi);
-  //var kodaVidea = text.substr(text - 11);
-  vhodnoBesedilo = vhodnoBesedilo.replace(/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi,"<iframe src='https://www.youtube.com/embed/"+ /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi.replace(/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi,/(?:https?:\/\/)?www\.youtube\.com\S+?v=\K\S+/gi )  +"' allowfullscreen width='200px' height='150px' style='margin-left:20px;'></iframe>" );
-  // <iframe src="https://www.youtube.com/embed/{video}" allowfullscreen></iframe>
-  // (?:https?:\/\/)?www\.youtube\.com\S+?v=\K\S+     -----NAJDE ID VIDEA
-  //<iframe src='https://www.youtube.com/embed/"+/(?:https?:\/\/)?www\.youtube\.com\S+?v=\K\S+/gi.substr(/(?:https?:\/\/)?www\.youtube\.com\S+?v=\K\S+/gi.length - 11)  +"' style='margin-left:20px;' width='200px' height='150px' allowfullscreen /></iframe>
+
+  var kodaVidea = youtubeVideoId(vhodnoBesedilo);  //rabimo ID youtube posnetka, nato zamenjamo youtube url z HTMLjem 
+  vhodnoBesedilo = vhodnoBesedilo.replace(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi,"<iframe width='200px' height='150px' style='margin-left:20px;' src='https://www.youtube.com/embed/"+kodaVidea+"' allowfullscreen ></iframe>" );
   return vhodnoBesedilo;
+}
+
+function youtubeVideoId(besedilo) { //dobimo ID video posnetka iz youtube......vidi link, in za v= odseka 11 znakov ki so ID videa
+  var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+  return (besedilo.match(p)) ? RegExp.$1 : false;
 }
