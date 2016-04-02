@@ -1,14 +1,22 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
+  var jeSlika = sporocilo.match(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi);
   var jeVideo = sporocilo.match(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi);
+  
   if (jeVideo){
      return $('<div style="font-weight: bold"></div>').html(sporocilo);
   }
+  if (jeSlika){   //preverimo ce je notri URL slike, ce je ...
+    //sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('\'200px\' /&gt;', '\'200px\'" />');
+    return $('<div style="font-weight: bold"></div>').html(sporocilo); //na koncu izpisemo
+  }
   if (jeSmesko) {
-    //ne rabimo tega, ker izpisemo kot .html(sporocilo), ce pa nima smeskov pa .text(sporocilo)
-    //sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
+   // sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
+
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
-  } else {
+  } 
+ 
+  else {
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
   }
 }
@@ -19,11 +27,15 @@ function divElementHtmlTekst(sporocilo) {
 
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
+
   sporocilo = dodajVideo(sporocilo);
+
+  sporocilo = dodajSlike(sporocilo);
+
   sporocilo = dodajSmeske(sporocilo);
   
   var sistemskoSporocilo;
-
+  
   if (sporocilo.charAt(0) == '/') {
     sistemskoSporocilo = klepetApp.procesirajUkaz(sporocilo);
     if (sistemskoSporocilo) {
@@ -151,13 +163,6 @@ $('#seznam-uporabnikov').click(function(x) {
 
 
 
-
-  
-
-
-
-<<<<<<< HEAD
-=======
 function dodajVideo(vhodnoBesedilo){
 
   var kodaVidea = youtubeVideoId(vhodnoBesedilo);  //rabimo ID youtube posnetka, nato zamenjamo youtube url z HTMLjem 
@@ -169,6 +174,11 @@ function youtubeVideoId(besedilo) { //dobimo ID video posnetka iz youtube......v
   var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
   return (besedilo.match(p)) ? RegExp.$1 : false;
 }
->>>>>>> .merge_file_EshWjU
-=======
->>>>>>> zasebna
+
+function dodajSlike(vhodnoBesedilo){
+  
+   vhodnoBesedilo = vhodnoBesedilo.replace(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi,"<img src='$1' style='margin-left:20px;' width='200px' />" );
+   return vhodnoBesedilo;
+}
+
+
