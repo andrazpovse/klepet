@@ -144,7 +144,7 @@ function dodajVideo(vhodnoBesedilo){
   if (vhodnoBesedilo.match(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi  )){
     //regexi za youtube url: /((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi            /((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi
     var linkiVbesedilu = vhodnoBesedilo.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/gi);
-    var rex =/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/gi;//www.youtube.com/watch?v=Xproogr1oe0
+   rex =/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/gi;//www.youtube.com/watch?v=Xproogr1oe0
     
     //pride slika za celotnim stringom
     for (var i = 0; i < linkiVbesedilu.length; i++){  //vrinemo slike na konec besedila
