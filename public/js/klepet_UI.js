@@ -141,16 +141,29 @@ function dodajSmeske(vhodnoBesedilo) {
 
 function dodajVideo(vhodnoBesedilo){
 
-  if (vhodnoBesedilo.match(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi)){
+  if (vhodnoBesedilo.match(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi  )){
+    //regexi za youtube url: /((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi            /((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi
     var linkiVbesedilu = vhodnoBesedilo.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/gi);
+    var rex =/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/gi;//www.youtube.com/watch?v=Xproogr1oe0
+    
     //pride slika za celotnim stringom
     for (var i = 0; i < linkiVbesedilu.length; i++){  //vrinemo slike na konec besedila
-     vhodnoBesedilo = vhodnoBesedilo + "<iframe width='200px' height='150px' style='margin-left:20px;' src='https://www.youtube.com/embed/" + linkiVbesedilu[i]+ "' allowfullscreen ></iframe>");
+   // var kodaVidea = youtubeVideoId(linkiVbesedilu[i]);  //v funkciji dobimo od Youtube url-ja samo njegov 11mestni ID
+     linkiVbesedilu[i].replace(rex, '$1');
+
+     vhodnoBesedilo = vhodnoBesedilo +"<iframe width='200px' height='150px' style='margin-left:20px;' src='https://www.youtube.com/embed/" + linkiVbesedilu[i]+ "' allowfullscreen ></iframe>";
     }
   }
   
-  return vhodnoBesedilo;
+ // function youtubeVideoId(besedilo) { //dobimo ID video posnetka iz youtube......vidi link, in za v= odseka 11 znakov ki so ID videa
+  //var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+  //var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+  //return (besedilo.match(p)).$1;
+ 
   
+  
+  return vhodnoBesedilo;
+}
   /* NAMESTO HTMLJA je bil dodan video
   var kodaVidea = youtubeVideoId(vhodnoBesedilo);  //rabimo ID youtube posnetka, nato zamenjamo youtube url z HTMLjem 
   vhodnoBesedilo = vhodnoBesedilo.replace(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi,"<iframe width='200px' height='150px' style='margin-left:20px;' src='https://www.youtube.com/embed/"+kodaVidea+"' allowfullscreen ></iframe>" );
@@ -159,5 +172,4 @@ function dodajVideo(vhodnoBesedilo){
 
 function youtubeVideoId(besedilo) { //dobimo ID video posnetka iz youtube......vidi link, in za v= odseka 11 znakov ki so ID videa
   var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-  return (besedilo.match(p)) ? RegExp.$1 : false;
-}*/
+  return (besedilo.match(p)) ? RegExp.$1 : false; */
