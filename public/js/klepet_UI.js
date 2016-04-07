@@ -182,15 +182,24 @@ $('#seznam-uporabnikov').click(function(x) {
 
 function dodajVideo(vhodnoBesedilo){
 
-  var kodaVidea = youtubeVideoId(vhodnoBesedilo);  //rabimo ID youtube posnetka, nato zamenjamo youtube url z HTMLjem 
-  vhodnoBesedilo = vhodnoBesedilo.replace(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi,"<iframe width='200px' height='150px' style='margin-left:20px;' src='https://www.youtube.com/embed/"+kodaVidea+"' allowfullscreen ></iframe>" );
+  if (vhodnoBesedilo.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/gi )){ //pogledamo ce sploh vsebuje linke za youtube
+    //regexi za youtube url: /((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi            /((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi
+    var linkiVbesedilu = vhodnoBesedilo.match(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi);
+
+    
+    //pride slika za celotnim stringom
+    for (var i = 0; i < linkiVbesedilu.length; i++){
+     
+      linkiVbesedilu[i] = linkiVbesedilu[i].replace(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/gi, '$2');//vrinemo slike na konec besedila
+   // tukaj dobimo pod $2 11 mestni ID videa
+     vhodnoBesedilo = vhodnoBesedilo +"<iframe width='200px' height='150px' style='margin-left:20px;' src='https://www.youtube.com/embed/" + linkiVbesedilu[i]+ "' allowfullscreen ></iframe>";
+    }
+  }
+  
   return vhodnoBesedilo;
 }
 
-function youtubeVideoId(besedilo) { //dobimo ID video posnetka iz youtube......vidi link, in za v= odseka 11 znakov ki so ID videa
-  var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-  return (besedilo.match(p)) ? RegExp.$1 : false;
-}
+
 
 function dodajSlike(vhodnoBesedilo){
   
