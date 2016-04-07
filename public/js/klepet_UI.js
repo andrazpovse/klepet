@@ -188,7 +188,7 @@ function dodajVideo(vhodnoBesedilo){
 
     
     //pride slika za celotnim stringom
-    for (var i = 0; i < linkiVbesedilu.length; i++){
+    for (var i = 0; i < linkiVbesedilu.length; i++){   //gremo cez vse linke ki smo jih nasli in jih vrivamo na konec stringa "vhodnoBesedilo"
      
       linkiVbesedilu[i] = linkiVbesedilu[i].replace(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/gi, '$2');//vrinemo slike na konec besedila
    // tukaj dobimo pod $2 11 mestni ID videa
@@ -204,7 +204,7 @@ function dodajVideo(vhodnoBesedilo){
 function dodajSlike(vhodnoBesedilo){
   
   if (vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi)){
-    var linkiVbesedilu = vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi);
+    var linkiVbesedilu = vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi);  //najdemo linke od slik
     //pride slika za celotnim stringom
     
     for (var i = 0; i < linkiVbesedilu.length; i++){  //vrinemo slike na konec besedila
