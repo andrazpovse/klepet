@@ -1,9 +1,11 @@
 function divElementEnostavniTekst(sporocilo) {
   
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
-  var jeSlika = sporocilo.match(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi);
+
   var jeVideo = sporocilo.match(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi);
-  
+
+  var jeSlika = sporocilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi);
+
   if (jeVideo){
      return $('<div style="font-weight: bold"></div>').html(sporocilo);
   }
@@ -192,7 +194,14 @@ function youtubeVideoId(besedilo) { //dobimo ID video posnetka iz youtube......v
 
 function dodajSlike(vhodnoBesedilo){
   
-   vhodnoBesedilo = vhodnoBesedilo.replace(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi,"<img src='$1' style='margin-left:20px;' width='200px' />" );
+  if (vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi)){
+    var linkiVbesedilu = vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi);
+    //pride slika za celotnim stringom
+    
+    for (var i = 0; i < linkiVbesedilu.length; i++){  //vrinemo slike na konec besedila
+     vhodnoBesedilo = vhodnoBesedilo + "<img src='"+linkiVbesedilu[i]+"' style='margin-left:20px;' width='200px' />";
+    }
+  }
    return vhodnoBesedilo;
 }
 
