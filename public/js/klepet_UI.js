@@ -1,6 +1,6 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
-  var jeSlika = sporocilo.match(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi);
+  var jeSlika = sporocilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi);
   
   
   if (jeSlika){   //preverimo ce je notri URL slike, ce je ...
@@ -144,7 +144,18 @@ function dodajSmeske(vhodnoBesedilo) {
 
 function dodajSlike(vhodnoBesedilo){
   
-   vhodnoBesedilo = vhodnoBesedilo.replace(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi,"<img src='$1' style='margin-left:20px;' width='200px' />" );
+  if (vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi)){
+    var linkiVbesedilu = vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi);
+    //pride slika za celotnim stringom
+    for (var i = 0; i < linkiVbesedilu.length; i++){  //vrinemo slike na konec besedila
+     vhodnoBesedilo = vhodnoBesedilo + "<img src='"+linkiVbesedilu[i]+"' style='margin-left:20px;' width='200px' />";
+    }
+  }
+  // vhodnoBesedilo = vhodnoBesedilo.replace(/(https?:[^\s]+\S+\.jpg|png|gif)/gi,"$1 <img src='$1' style='margin-left:20px;' width='200px' /> " );
+   //(http://[^"]*? -----------------PRIDE SLIKA TAKOJ ZA HTTP LINKOM
+   // http + slika....tko?
+   
+   ///([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/gi     + http/https
    return vhodnoBesedilo;
 }
 
