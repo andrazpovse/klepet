@@ -143,13 +143,13 @@ function dodajVideo(vhodnoBesedilo){
 
   if (vhodnoBesedilo.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/gi )){
     //regexi za youtube url: /((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi            /((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi
-    var linkiVbesedilu = vhodnoBesedilo.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/gi);
+    var linkiVbesedilu = vhodnoBesedilo.match(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/)|(youtu.be\/))[\S]+/gi);
   //www.youtube.com/watch?v=Xproogr1oe0
     
     //pride slika za celotnim stringom
     for (var i = 0; i < linkiVbesedilu.length; i++){
      
-      linkiVbesedilu[i] = linkiVbesedilu[i].replace(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/i, '$2');//vrinemo slike na konec besedila
+      linkiVbesedilu[i] = linkiVbesedilu[i].replace(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/gi, '$2');//vrinemo slike na konec besedila
    // var kodaVidea = youtubeVideoId(linkiVbesedilu[i]);  //v funkciji dobimo od Youtube url-ja samo njegov 11mestni ID
      vhodnoBesedilo = vhodnoBesedilo +"<iframe width='200px' height='150px' style='margin-left:20px;' src='https://www.youtube.com/embed/" + linkiVbesedilu[i]+ "' allowfullscreen ></iframe>";
     }
