@@ -150,7 +150,7 @@ function dodajSlike(vhodnoBesedilo){
     //pride slika za celotnim stringom
     
     for (var i = 0; i < linkiVbesedilu.length; i++){  //vrinemo slike na konec besedila
-     vhodnoBesedilo = vhodnoBesedilo + "<img src='"+linkiVbesedilu[i]+"' style='margin-left:20px;' width='200px' />";
+     vhodnoBesedilo = vhodnoBesedilo + "<img src='"+linkiVbesedilu[i]+"' style='margin-left:20px; display:block;' width='200px' />";
     }
   }
    return vhodnoBesedilo;
