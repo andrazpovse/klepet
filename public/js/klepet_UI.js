@@ -10,7 +10,6 @@ function divElementEnostavniTekst(sporocilo) {
      return $('<div style="font-weight: bold"></div>').html(sporocilo);
   }
   if (jeSlika){   //preverimo ce je notri URL slike, ce je ...
-    //sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('\'200px\' /&gt;', '\'200px\'" />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo); //na koncu izpisemo
   }
   if (jeSmesko) {
@@ -208,7 +207,7 @@ function dodajSlike(vhodnoBesedilo){
     //pride slika za celotnim stringom
     
     for (var i = 0; i < linkiVbesedilu.length; i++){  //vrinemo slike na konec besedila
-     vhodnoBesedilo = vhodnoBesedilo + "<img src='"+linkiVbesedilu[i]+"' style='margin-left:20px;' width='200px' />";
+     vhodnoBesedilo = vhodnoBesedilo + "<img src='"+linkiVbesedilu[i]+"' style='margin-left:20px; display:block;' width='200px' />";
     }
   }
    return vhodnoBesedilo;
