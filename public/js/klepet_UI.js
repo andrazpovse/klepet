@@ -5,7 +5,6 @@ function divElementEnostavniTekst(sporocilo) {
   var jeVideo = sporocilo.match(/((http(s)?:\/\/)?)(www\.)?((youtube\.com\/))/gi);
 
   var jeSlika = sporocilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi);
-      // TO-DO ----------------------------------DISABLE XSS ATTACKS----------------------------------------------TO - DO
   if (jeVideo){
      return $('<div style="font-weight: bold"></div>').html(sporocilo);
   }
