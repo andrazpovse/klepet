@@ -5,10 +5,11 @@ function divElementEnostavniTekst(sporocilo) {
   
   if (jeSlika){   //preverimo ce je notri URL slike, ce je ...
     //sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('\'200px\' /&gt;', '\'200px\'" />');
+    console.log(sporocilo);
     return $('<div style="font-weight: bold"></div>').html(sporocilo); //na koncu izpisemo
   }
   if (jeSmesko) {
-   // sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
+    sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } 
  
@@ -145,7 +146,7 @@ function dodajSmeske(vhodnoBesedilo) {
 function dodajSlike(vhodnoBesedilo){
   
   if (vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi)){
-    var linkiVbesedilu = vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi);
+    var linkiVbesedilu = vhodnoBesedilo.match(/(https?:[^\s]+\S+\.(jpg|jpeg|png|gif))/gi, '$1');
     //pride slika za celotnim stringom
     
     for (var i = 0; i < linkiVbesedilu.length; i++){  //vrinemo slike na konec besedila
