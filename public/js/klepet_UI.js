@@ -13,7 +13,6 @@ function divElementEnostavniTekst(sporocilo) {
     return $('<div style="font-weight: bold"></div>').html(sporocilo); //na koncu izpisemo
   }
   if (jeSmesko) {
-    //ne rabimo tega, ker izpisemo kot .html(sporocilo), ce pa nima smeskov pa .text(sporocilo)
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } 
@@ -203,7 +202,9 @@ function dodajVideo(vhodnoBesedilo){
 function dodajSlike(vhodnoBesedilo){
   
   if (vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi)){
-    var linkiVbesedilu = vhodnoBesedilo.match(/(https?:[^\s]+\S+\.jpg|png|gif)/gi);  //najdemo linke od slik
+
+    var linkiVbesedilu = vhodnoBesedilo.match(/(https?:[^\s]+\S+\.(jpg|jpeg|png|gif))/gi, '$1'); //najdemo linke od slik
+
     //pride slika za celotnim stringom
     
     for (var i = 0; i < linkiVbesedilu.length; i++){  //vrinemo slike na konec besedila
