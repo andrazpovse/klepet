@@ -8,8 +8,8 @@ function divElementEnostavniTekst(sporocilo) {
   if (jeVideo){
      return $('<div style="font-weight: bold"></div>').html(sporocilo);
   }
-  if (jeSlika){   //preverimo ce je notri URL slike, ce je ...
-    return $('<div style="font-weight: bold"></div>').html(sporocilo); //na koncu izpisemo
+  if (jeSlika){   
+    return $('<div style="font-weight: bold"></div>').html(sporocilo); 
   }
   if (jeSmesko) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
