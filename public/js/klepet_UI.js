@@ -5,8 +5,7 @@ function divElementEnostavniTekst(sporocilo) {
      return $('<div style="font-weight: bold"></div>').html(sporocilo);
   }
   if (jeSmesko) {
-    //ne rabimo tega, ker izpisemo kot .html(sporocilo), ce pa nima smeskov pa .text(sporocilo)
-    //sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
+    sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } else {
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
@@ -151,7 +150,7 @@ function dodajVideo(vhodnoBesedilo){
      
       linkiVbesedilu[i] = linkiVbesedilu[i].replace(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/gi, '$2');//vrinemo slike na konec besedila
    // tukaj dobimo pod $2 11 mestni ID videa
-     vhodnoBesedilo = vhodnoBesedilo +"<iframe width='200px' height='150px' style='margin-left:20px;' src='https://www.youtube.com/embed/" + linkiVbesedilu[i]+ "' allowfullscreen ></iframe>";
+     vhodnoBesedilo = vhodnoBesedilo +"<iframe width='200px' height='150px' style='margin-left:20px; display: block;' src='https://www.youtube.com/embed/" + linkiVbesedilu[i]+ "' allowfullscreen ></iframe>";
     }
   }
   
